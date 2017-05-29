@@ -2,12 +2,13 @@
 #ami:  ami-accff2b1
 ami: ami-f1d7c395
 region: eu-west-2
-ansible_ssh_private_key_file: ~/.ssh/szkolenie_05_london.pem
+ansible_ssh_private_key_file: ~/.ssh/aviva17.pem
 location: london
+key: aviva17
+role: mgmt-a17
+host_role: mgmt-a17
 
-role: mgmt
-
-env_name: 'szkolenie'
+env_name: 'szkolenie_a17'
 
 #allow change VPC (routing)
 allow_vpc_change: True
@@ -15,24 +16,24 @@ allow_vpc_change: True
 # VPC
 szkolenie_vpc: 
     vpc:
-        name: szkolenie
-        cidr_block: 10.218.0.0/22
+        name: szkolenie_a17
+        cidr_block: 10.221.0.0/24
         subnets:
-          - cidr: 10.218.0.0/24
+          - cidr: 10.221.0.0/25
             resource_tags:
-                Name: szkolenie_pub
+                Name: szkolenie_pub_a17
     route:
       - subnets:
-          - 10.218.0.0/24
+          - 10.221.0.0/25
         routes:
           - dest: 0.0.0.0/0
             gw: igw
         resource_tags:
-          Name:  szkolenie default route
+          Name:  szkolenie default route a17
 
     security_groups:
-        name: szkolenie-security-group
-        description: szkolenie SG
+        name: szkolenie-security-group-a17
+        description: szkolenie SG a17
         rules:
           - proto: tcp
             from_port: 22
@@ -62,6 +63,10 @@ szkolenie_vpc:
             from_port: 22
             to_port: 22
             cidr_ip: 52.56.207.120/32 #mgmt 
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 37.47.5.11/32 #kubagprs
           - proto: icmp
             from_port: -1
             to_port: -1
@@ -69,6 +74,6 @@ szkolenie_vpc:
     ec2_eip:
         instance_A:
           tag: 1A
-          ip: 52.56.207.120
-          name: 'mgmt-server'
-    instance_group: szkolenie1
+          ip: 35.176.70.226
+          name: 'mgmt-server-a17'
+    instance_group: szkolenie1a17

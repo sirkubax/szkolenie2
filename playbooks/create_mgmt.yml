@@ -30,6 +30,11 @@
   connection: local
   gather_facts: False
 
+  pre_tasks:
+      - include_vars: "{{ item }}"
+        with_first_found: "{{ vars_files_var }}"
+      - set_fact:
+          generic_vpc: "{{ szkolenie_vpc }}"
   vars:
   - vars_files_var: ["../../../vars/szkolenie_vpc.yml"]
 
