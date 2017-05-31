@@ -1,0 +1,9 @@
+---
+#Uruchomienie:
+#~/szkolenie$ ansible-playbook playbooks/ping_by_tag.yml
+#
+- hosts: tag_name_apache
+
+  tasks:
+  - name: ping 
+    ping:
